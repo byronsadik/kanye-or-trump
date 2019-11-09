@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import {yeezyOrTrump} from './kanyeortrump.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 yeezyOrTrump();
 
@@ -151,12 +153,10 @@ class Game extends React.Component {
 
 // ========================================
 
-ReactDOM.render(
-  <Game />,
-  document.getElementById('root')
-);
-
-
+// ReactDOM.render(
+//   <Game />,
+//   document.getElementById('root')
+// );
 
 
 /*
