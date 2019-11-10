@@ -7,32 +7,73 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const rootDiv = document.querySelector('#root');
 
-function App(props){
-  return(
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <h1 class="mt-5">Who said it? Kanye or Trump?</h1>
-          <div class="container">
-            <div class="row">
-              <p class="message"></p>
-            </div>
-            <div class="row">
-              <div class="col-sm">
-                <button type="button" class="btn btn-primary btn-lg kanye">Kanye</button>
+class App extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {};
+  }
+
+  render(){
+    return(
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h1 class="mt-5">Who said it? Kanye or Trump?</h1>
+            <div class="container">
+              <div class="row">
+                <Message />
               </div>
-              <div class="col-sm">
-                <button type="button" class="btn btn-secondary btn-lg trump">Trump</button>
+              <div class="row">
+                <div class="col-sm">
+                  <Button addClass='kanye' />
+                </div>
+                <div class="col-sm">
+                  <Button addClass='trump' />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
+class Message extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      message: "default"
+    };
+  }
+
+  render() {
+    return (
+      <p className='message'>{this.state.message}</p>
+    );
+  }
+}
+
+class Button extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      classes: 'btn btn-lg selector  ' + this.props.addClass 
+    };
+  }
+
+  render(){
+    return(
+      <button type="button" className={this.state.classes}>{this.props.addClass}</button>
+    );
+  }
+}
+
+
 ReactDOM.render(<App />, rootDiv);
+
+
+
 
 
 var yeezy = 'https://api.kanye.rest?format=json',
