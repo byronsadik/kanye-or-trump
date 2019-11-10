@@ -51,15 +51,15 @@ function getMessage() {
 
       document.querySelector('p.message').innerText = responseMessage;
       console.log(responseMessage);
-      
-      function trumpMessage(data){
-        responseMessage = data.message;
-      }
-      function yeezyMessage(data){
-        responseMessage = data.quote;
-      }
 
     });
+
+    function trumpMessage(data){
+      responseMessage = data.message;
+    }
+    function yeezyMessage(data){
+      responseMessage = data.quote;
+    }
 
 } // end getMessage()
 
