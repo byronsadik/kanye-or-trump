@@ -4,6 +4,37 @@ import './index.css';
 // import {yeezyOrTrump} from './kanyeortrump.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
+const rootDiv = document.querySelector('#root');
+
+function App(props){
+  return(
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h1 class="mt-5">Who said it? Kanye or Trump?</h1>
+          <div class="container">
+            <div class="row">
+              <p class="message"></p>
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                <button type="button" class="btn btn-primary btn-lg kanye">Kanye</button>
+              </div>
+              <div class="col-sm">
+                <button type="button" class="btn btn-secondary btn-lg trump">Trump</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.render(<App />, rootDiv);
+
+
 var yeezy = 'https://api.kanye.rest?format=json',
     trump = 'https://api.whatdoestrumpthink.com/api/v1/quotes/random',
     yeezyOrTrump,
@@ -14,7 +45,7 @@ var yeezy = 'https://api.kanye.rest?format=json',
 getMessage();
 
 document.querySelector('button.trump').addEventListener("click", () => {
-    alertResult(trump);
+  alertResult(trump);
 });
 
 document.querySelector('button.kanye').addEventListener("click", () => {
