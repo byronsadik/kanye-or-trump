@@ -17,7 +17,6 @@ document.querySelector('button.trump').addEventListener("click", () => {
     alertResult(trump);
 });
 
-
 document.querySelector('button.kanye').addEventListener("click", () => {
   alertResult(yeezy);
 });
@@ -37,8 +36,6 @@ function getMessage() {
   yeezyOrTrump =  (Math.round((Math.random() * 1) + 0) === 0);
   calloutURL = yeezyOrTrump ? yeezy : trump;
 
-  console.log(calloutURL);
-
   fetch(calloutURL)
     .then((res) => { return res.json() })
     .then((data) => {
@@ -50,7 +47,6 @@ function getMessage() {
       }
 
       document.querySelector('p.message').innerText = responseMessage;
-      console.log(responseMessage);
 
     });
 
