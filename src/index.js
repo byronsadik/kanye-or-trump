@@ -5,7 +5,10 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-const rootDiv = document.querySelector('#root');
+const rootDiv = document.querySelector('#root'),
+      yeezy = 'https://api.kanye.rest?format=json',
+      trump = 'https://api.whatdoestrumpthink.com/api/v1/quotes/random'
+;
 
 class App extends React.Component{
   constructor(props){
@@ -31,6 +34,11 @@ class App extends React.Component{
                   <Button addClass='trump' />
                 </div>
               </div>
+              <div class="row">
+                <div class="col-sm">
+                 {/* <Score /> */}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -38,6 +46,22 @@ class App extends React.Component{
     );
   }
 }
+
+class Score extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      score: 0
+    };
+  }
+
+  render() {
+    return(
+      <h3>The score is: {this.state.score}</h3>
+    );
+  }
+}
+
 
 class Message extends React.Component {
   constructor(props){
@@ -73,12 +97,7 @@ class Button extends React.Component {
 ReactDOM.render(<App />, rootDiv);
 
 
-
-
-
-var yeezy = 'https://api.kanye.rest?format=json',
-    trump = 'https://api.whatdoestrumpthink.com/api/v1/quotes/random',
-    yeezyOrTrump,
+var yeezyOrTrump,
     calloutURL,
     responseMessage
 ;
