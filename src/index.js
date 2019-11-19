@@ -8,25 +8,27 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 class App extends React.Component{
   constructor(props){
     super(props);
+
     this.state = {
       score: 0,
-      kanyeOrTrump: null,
+      kanyeOrTrump: this.getKanyeOrTrump(),
       trump: 'https://api.whatdoestrumpthink.com/api/v1/quotes/random',
       kanye: 'https://api.kanye.rest?format=json',
-      message: null,
-      calloutURL: null,
+      message: '',
     };
 
     this.getMessage();
 
+  }
 
-
-
+  getKanyeOrTrump() {
+    return (Math.round((Math.random() * 1) + 0) === 0) ? 'kanye' : 'trump';
   }
 
 
   handleClick() {
     let score = this.state.score;
+
     this.setState({
       score: ++score,
     });
@@ -40,18 +42,19 @@ class App extends React.Component{
     );
   }
 
-  getMessage(){
-    this.setState({
-      kanyeOrTrump: (Math.round((Math.random() * 1) + 0) === 0) ? 'kanye' : 'trump',
-      calloutURL: this.state.kanyeOrTrump ? this.state.kanye : this.state.trump
-    });
+  componentDidMount(){
+    this.getMessage();
+  }
 
-    fetch(this.state.calloutURL)
+  getMessage(){
+
+    let calloutURL = this.state.kanyeOrTrump === 'kanye' ? this.state.kanye : this.state.trump;
+
+    fetch(calloutURL)
       .then((res) => { return res.json() })
       .then((data) => {
 
-
-        if (this.state.kanyeOrTrump) {
+        if (this.state.kanyeOrTrump === 'kanye') {
           this.setState({
             message: data.quote
           });
@@ -61,7 +64,6 @@ class App extends React.Component{
             message: data.message
           }); 
         }
-
 
       });
   }
