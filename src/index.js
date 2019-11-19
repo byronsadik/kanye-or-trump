@@ -15,35 +15,16 @@ class App extends React.Component{
       trump: 'https://api.whatdoestrumpthink.com/api/v1/quotes/random',
       kanye: 'https://api.kanye.rest?format=json',
       message: '',
+      calloutURL: ''
     };
-
-    this.getMessage();
-
-  }
-
-  getKanyeOrTrump() {
-    return (Math.round((Math.random() * 1) + 0) === 0) ? 'kanye' : 'trump';
-  }
-
-
-  handleClick() {
-    let score = this.state.score;
-
-    this.setState({
-      score: ++score,
-    });
-    console.log("handleClick clicked");
-    this.getMessage();
-  }
-
-  renderButton(c){
-    return(
-      <Button addClass={c} onClick={() => {this.handleClick()}} />
-    );
   }
 
   componentDidMount(){
     this.getMessage();
+  }
+
+  getKanyeOrTrump() {
+    return (Math.round((Math.random() * 1) + 0) === 0) ? 'kanye' : 'trump';
   }
 
   getMessage(){
@@ -56,16 +37,36 @@ class App extends React.Component{
 
         if (this.state.kanyeOrTrump === 'kanye') {
           this.setState({
-            message: data.quote
+            message: data.quote,
+            kanyeOrTrump: this.getKanyeOrTrump()
           });
 
         } else {
           this.setState({
-            message: data.message
+            message: data.message,
+            kanyeOrTrump: this.getKanyeOrTrump()
+
           }); 
         }
 
       });
+  }
+
+  handleClick(c) {
+    let score = this.state.score;
+    let newScore = (c === this.state.kanyeOrTrump) ? (++score) : (--score);
+
+    this.setState({
+      score: newScore,
+    });
+
+    this.getMessage();
+  }
+
+  renderButton(c){
+    return(
+      <Button addClass={c} onClick={() => {this.handleClick(c)}} />
+    );
   }
 
   render(){
