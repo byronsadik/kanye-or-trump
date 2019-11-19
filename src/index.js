@@ -9,13 +9,17 @@ class App extends React.Component{
   constructor(props){
     super(props);
 
+    const kanyeOrTrump = this.getKanyeOrTrump();
+    const trump = 'https://api.whatdoestrumpthink.com/api/v1/quotes/random'; 
+    const kanye = 'https://api.kanye.rest?format=json';
+
     this.state = {
       score: 0,
-      kanyeOrTrump: this.getKanyeOrTrump(),
-      trump: 'https://api.whatdoestrumpthink.com/api/v1/quotes/random',
-      kanye: 'https://api.kanye.rest?format=json',
+      kanyeOrTrump: kanyeOrTrump,
+      trump: trump,
+      kanye: kanye,
       message: '',
-      calloutURL: ''
+      calloutURL: (kanyeOrTrump === 'kanye') ? kanye : trump
     };
   }
 
