@@ -10,20 +10,28 @@ class App extends React.Component{
     super(props);
     this.state = {
       score: 0,
-      kanyeOrTrump: null
+      kanyeOrTrump: null,
+      trump: 'https://api.whatdoestrumpthink.com/api/v1/quotes/random',
+      kanye: 'https://api.kanye.rest?format=json',
+      message: null,
+      calloutURL: null,
     };
+
+    this.getMessage();
+
+
+
+
   }
 
 
   handleClick() {
-    let score = this.state.score + 1;
-
+    let score = this.state.score;
     this.setState({
-      score: score,
+      score: ++score,
     });
-
     console.log("handleClick clicked");
-
+    this.getMessage();
   }
 
   renderButton(c){
@@ -32,6 +40,31 @@ class App extends React.Component{
     );
   }
 
+  getMessage(){
+    this.setState({
+      kanyeOrTrump: (Math.round((Math.random() * 1) + 0) === 0) ? 'kanye' : 'trump',
+      calloutURL: this.state.kanyeOrTrump ? this.state.kanye : this.state.trump
+    });
+
+    fetch(this.state.calloutURL)
+      .then((res) => { return res.json() })
+      .then((data) => {
+
+
+        if (this.state.kanyeOrTrump) {
+          this.setState({
+            message: data.quote
+          });
+
+        } else {
+          this.setState({
+            message: data.message
+          }); 
+        }
+
+
+      });
+  }
 
   render(){
     return(
@@ -41,16 +74,14 @@ class App extends React.Component{
             <h1 class="mt-5">Who said it? Kanye or Trump?</h1>
             <div class="container">
               <div class="row">
-                <Message />
+                <Message text={this.state.message} />
               </div>
               <div class="row">
                 <div class="col-sm">
-                  <Button addClass='kanye' onClick={() => {this.handleClick()}} />
+                  {this.renderButton('kanye')}                  
                 </div>
                 <div class="col-sm">
-                  {this.renderButton('trump')}
-                  {/*<Button addClass='trump' onClick={() => {this.handleClick()}} />*/}
-                  
+                  {this.renderButton('trump')}                  
                 </div>
               </div>
               <div class="row">
@@ -79,14 +110,11 @@ class Score extends React.Component {
 class Message extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-      message: "default"
-    };
   }
 
   render() {
     return (
-      <p className='message'>{this.state.message}</p>
+      <p className='message'>{this.props.text}</p>
     );
   }
 }
@@ -111,69 +139,5 @@ class Button extends React.Component {
   }
 }
 
-
-var rootDiv = document.querySelector('#root')
-
+var rootDiv = document.querySelector('#root');
 ReactDOM.render(<App />, rootDiv);
-
-
-
-const yeezy = 'https://api.kanye.rest?format=json',
-      trump = 'https://api.whatdoestrumpthink.com/api/v1/quotes/random'
-;
-
-
-var yeezyOrTrump,
-    calloutURL,
-    responseMessage
-;
-
-getMessage();
-
-document.querySelector('button.trump').addEventListener("click", () => {
-  alertResult(trump);
-});
-
-document.querySelector('button.kanye').addEventListener("click", () => {
-  alertResult(yeezy);
-});
-
-
-function alertResult(url) {
-  if (calloutURL === url) {
-    console.log("You win!");
-  } else {
-    console.log("You lose!");
-  }
-  getMessage();
-}
-
-
-function getMessage() {
-  yeezyOrTrump =  (Math.round((Math.random() * 1) + 0) === 0);
-  calloutURL = yeezyOrTrump ? yeezy : trump;
-
-  fetch(calloutURL)
-    .then((res) => { return res.json() })
-    .then((data) => {
-
-      if (yeezyOrTrump) {
-        yeezyMessage(data);
-      } else {
-        trumpMessage(data);
-      }
-
-      document.querySelector('p.message').innerText = responseMessage;
-
-    });
-
-    function trumpMessage(data){
-      responseMessage = data.message;
-    }
-    function yeezyMessage(data){
-      responseMessage = data.quote;
-    }
-
-} // end getMessage()
-
-
