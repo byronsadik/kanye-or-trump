@@ -28,28 +28,31 @@ class App extends React.Component{
   }
 
   getKanyeOrTrump() {
-    return (Math.round((Math.random() * 1) + 0) === 0) ? 'kanye' : 'trump';
+    return ((Math.round((Math.random() * 1) + 0) === 0) ? 'kanye' : 'trump');
+  }
+
+  getCalloutURL(){
+    return (this.state.kanyeOrTrump === 'kanye' ? this.state.kanye : this.state.trump);
   }
 
   getMessage(){
 
-    let calloutURL = this.state.kanyeOrTrump === 'kanye' ? this.state.kanye : this.state.trump;
-
-    fetch(calloutURL)
+    fetch(this.state.calloutURL)
       .then((res) => { return res.json() })
       .then((data) => {
 
         if (this.state.kanyeOrTrump === 'kanye') {
           this.setState({
             message: data.quote,
-            kanyeOrTrump: this.getKanyeOrTrump()
+            kanyeOrTrump: this.getKanyeOrTrump(),
+            calloutURL: this.getCalloutURL(),
           });
 
         } else {
           this.setState({
             message: data.message,
-            kanyeOrTrump: this.getKanyeOrTrump()
-
+            kanyeOrTrump: this.getKanyeOrTrump(),
+            calloutURL: this.getCalloutURL(),
           }); 
         }
 
