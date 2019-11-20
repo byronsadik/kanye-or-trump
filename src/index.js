@@ -9,17 +9,13 @@ class App extends React.Component{
   constructor(props){
     super(props);
 
-    const kanyeOrTrump = this.getKanyeOrTrump();
-    const trump = 'https://api.whatdoestrumpthink.com/api/v1/quotes/random'; 
-    const kanye = 'https://api.kanye.rest?format=json';
+    this.trump = 'https://api.whatdoestrumpthink.com/api/v1/quotes/random'; 
+    this.kanye = 'https://api.kanye.rest?format=json';
 
     this.state = {
       score: 0,
-      kanyeOrTrump: kanyeOrTrump,
-      trump: trump,
-      kanye: kanye,
       message: '',
-      calloutURL: (kanyeOrTrump === 'kanye') ? kanye : trump
+      calloutURL: this.getCalloutURL()
     };
   }
 
@@ -27,31 +23,27 @@ class App extends React.Component{
     this.getMessage();
   }
 
-  getKanyeOrTrump() {
-    return ((Math.round((Math.random() * 1) + 0) === 0) ? 'kanye' : 'trump');
-  }
-
-  getCalloutURL(){
-    return (this.state.kanyeOrTrump === 'kanye' ? this.state.kanye : this.state.trump);
+  getCalloutURL() {
+    return ((Math.round((Math.random() * 1) + 0) === 0) ? this.kanye : this.trump);
   }
 
   getMessage(){
+
+    console.log(this.state.calloutURL);
 
     fetch(this.state.calloutURL)
       .then((res) => { return res.json() })
       .then((data) => {
 
-        if (this.state.kanyeOrTrump === 'kanye') {
+        if (this.state.calloutURL === this.kanye) {
           this.setState({
             message: data.quote,
-            kanyeOrTrump: this.getKanyeOrTrump(),
             calloutURL: this.getCalloutURL(),
           });
 
         } else {
           this.setState({
             message: data.message,
-            kanyeOrTrump: this.getKanyeOrTrump(),
             calloutURL: this.getCalloutURL(),
           }); 
         }
@@ -61,7 +53,10 @@ class App extends React.Component{
 
   handleClick(c) {
     let score = this.state.score;
-    let newScore = (c === this.state.kanyeOrTrump) ? (++score) : (--score);
+    // let newScore = (c === this.state.kanyeOrTrump) ? (++score) : (--score);
+
+    let newScore = (++score);
+
 
     this.setState({
       score: newScore,
@@ -118,9 +113,6 @@ class Score extends React.Component {
 
 
 class Message extends React.Component {
-  constructor(props){
-    super(props);
-  }
 
   render() {
     return (
