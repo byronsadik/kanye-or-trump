@@ -31,8 +31,10 @@ class App extends React.Component{
     return (this.state.calloutURL === this.kanye ? 'kanye' : 'trump');
   }
 
-  callOut(){
-
+  callBack(string){
+    this.setState({
+      message: string,
+    });
   }
 
   getMessage(){
@@ -44,13 +46,12 @@ class App extends React.Component{
       .then((data) => {
 
         if (this.state.calloutURL === this.kanye) {
-          this.setState({
-            message: data.quote,
-          });
+
+          this.callBack(data.quote);
+        
         } else if (this.state.calloutURL === this.trump) {
-          this.setState({
-            message: data.message,
-          }); 
+        
+          this.callBack(data.message);
         }
 
       });
@@ -62,10 +63,10 @@ class App extends React.Component{
 
     this.setState({
       score: newScore,
-      calloutURL: this.getCalloutURL()
+      // calloutURL: this.getCalloutURL()
     });
 
-    this.getMessage();
+    // this.getMessage();
   }
 
   renderButton(c){
