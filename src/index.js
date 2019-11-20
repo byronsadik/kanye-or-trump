@@ -20,8 +20,7 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    console.log(this.state.calloutURL);
-
+    console.log("component mount: " + this.state.calloutURL);
     this.getMessage();
   }
 
@@ -41,10 +40,10 @@ class App extends React.Component {
 
   getMessage(){
 
-    console.log(this.state.calloutURL);
+    console.log("getMessage(): " + this.state.calloutURL);
 
     fetch(this.state.calloutURL)
-      .then((res) => { return res.json() })
+      .then((res) => {return res.json()})
       .then((data) => {
 
         if (this.state.calloutURL === this.kanye) {
