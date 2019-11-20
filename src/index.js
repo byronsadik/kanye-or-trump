@@ -58,8 +58,7 @@ class App extends React.Component{
   }
 
   handleClick(c) {
-    let score = this.state.score;
-    let newScore = (c === this.getKanyeOrTrump()) ? (++score) : (--score);
+    let newScore = (c === this.getKanyeOrTrump()) ? (this.state.score + 1) : (this.state.score - 1);
 
     this.setState({
       score: newScore,
@@ -106,23 +105,17 @@ class App extends React.Component{
   }
 }
 
-class Score extends React.Component {
-
-  render() {
-    return(
-      <h3>The score is: {this.props.score}</h3>
-    );
-  }
+function Score(props) {
+  return(
+    <h3>The score is: {props.score}</h3>
+  );
 }
 
 
-class Message extends React.Component {
-
-  render() {
-    return (
-      <p className='message'>{this.props.text}</p>
-    );
-  }
+function Message(props) {
+  return (
+    <p className='message'>{props.text}</p>
+  );
 }
 
 class Button extends React.Component {
