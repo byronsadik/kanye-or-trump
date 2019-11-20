@@ -27,6 +27,14 @@ class App extends React.Component{
     return ((Math.round((Math.random() * 1) + 0) === 0) ? this.kanye : this.trump);
   }
 
+  getKanyeOrTrump(){
+    return (this.state.calloutURL === this.kanye ? 'kanye' : 'trump');
+  }
+
+  callOut(){
+
+  }
+
   getMessage(){
 
     console.log(this.state.calloutURL);
@@ -38,13 +46,10 @@ class App extends React.Component{
         if (this.state.calloutURL === this.kanye) {
           this.setState({
             message: data.quote,
-            calloutURL: this.getCalloutURL(),
           });
-
-        } else {
+        } else if (this.state.calloutURL === this.trump) {
           this.setState({
             message: data.message,
-            calloutURL: this.getCalloutURL(),
           }); 
         }
 
@@ -53,13 +58,11 @@ class App extends React.Component{
 
   handleClick(c) {
     let score = this.state.score;
-    // let newScore = (c === this.state.kanyeOrTrump) ? (++score) : (--score);
-
-    let newScore = (++score);
-
+    let newScore = (c === this.getKanyeOrTrump()) ? (++score) : (--score);
 
     this.setState({
       score: newScore,
+      calloutURL: this.getCalloutURL()
     });
 
     this.getMessage();
