@@ -5,7 +5,7 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-class App extends React.Component{
+class App extends React.Component {
   constructor(props){
     super(props);
 
@@ -20,6 +20,8 @@ class App extends React.Component{
   }
 
   componentDidMount(){
+    console.log(this.state.calloutURL);
+
     this.getMessage();
   }
 
@@ -52,6 +54,7 @@ class App extends React.Component{
         } else if (this.state.calloutURL === this.trump) {
         
           this.callBack(data.message);
+
         }
 
       });
@@ -62,10 +65,9 @@ class App extends React.Component{
 
     this.setState({
       score: newScore,
-      // calloutURL: this.getCalloutURL()
     });
 
-    // this.getMessage();
+    this.getMessage();
   }
 
   renderButton(c){
@@ -127,7 +129,7 @@ class Button extends React.Component {
     };
   }
 
-  render(){
+  render() {
     return(
       <button type="button" 
               className={this.state.classes}
