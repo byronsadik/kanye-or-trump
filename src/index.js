@@ -73,6 +73,7 @@ class App extends React.Component {
 
   handleClick(buttonClass) {
 
+    // determine whether user picked correct guy and add (or subtract) from the score
     let newScore = (buttonClass === this.state.kanyeOrTrump) ? (this.state.score + 1) : (this.state.score - 1);
 
     this.setState({
