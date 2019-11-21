@@ -27,10 +27,6 @@ class App extends React.Component {
     this.getMessage();
   }
 
-  getCalloutURL() {
-    return ((Math.round((Math.random() * 1) + 0) === 0) ? this.state.urls.kanye : this.state.urls.trump);
-  }
-
   callBack(data) {
     
     let message;
@@ -49,7 +45,10 @@ class App extends React.Component {
 
   getMessage() {
 
-    let url = this.getCalloutURL();
+    // pick a URL to callout and then set the state to kanye or trump as an easier reference
+
+    let url = ((Math.round((Math.random() * 1) + 0) === 0) ? this.state.urls.kanye : this.state.urls.trump);
+
     let kanyeOrTrump = (url === this.state.urls.kanye ? 'kanye' : 'trump');
 
     this.setState({
