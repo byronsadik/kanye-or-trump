@@ -14,6 +14,7 @@ class Game extends React.Component {
       message: '',
       calloutURL: '',
       kanyeOrTrump: '',
+      correctAnswer: null,
 
       urls: {
         kanye: 'https://api.kanye.rest?format=json',
@@ -70,10 +71,15 @@ class Game extends React.Component {
   handleClick(buttonClass) {
 
     // determine whether user picked correct guy and add (or subtract) from the score
-    let newScore = (buttonClass === this.state.kanyeOrTrump) ? (this.state.score + 1) : (this.state.score - 1);
+
+    let result = (buttonClass === this.state.kanyeOrTrump);
+
+
+    let newScore = result ? (this.state.score + 1) : (this.state.score - 1);
 
     this.setState({
       score: newScore,
+      correctAnswer: result,
     }, this.getMessage);
   }
 
@@ -103,7 +109,7 @@ class Game extends React.Component {
               </div>
               <div class="row">
                 <div class="col-sm">
-                 <Score score={this.state.score} />
+                 <Score score={this.state.score} correctAnswer={this.state.correctAnswer} />
                 </div>
               </div>
             </div>
@@ -115,13 +121,20 @@ class Game extends React.Component {
 }
 
 
+class Score extends React.Component {
 
+  constructor(props){
+    super(props);
+    this.state = {
+      correctAnswer: ''
+    };
+  }
 
-
-function Score(props) {
-  return (
-    <h3>Your score is: {props.score}</h3>
-  );
+  render() {
+    return (
+      <h3>Your score is: {this.props.score}</h3>
+    );
+  }
 }
 
 
