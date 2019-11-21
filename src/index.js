@@ -27,7 +27,7 @@ class App extends React.Component {
     this.getMessage();
   }
 
-  callBack(data) {
+  updateMessage(data) {
     
     let message;
 
@@ -66,7 +66,7 @@ class App extends React.Component {
       .then((res) => {return res.json()})
       .then((data) => {
 
-        this.callBack(data);
+        this.updateMessage(data);
 
       });
   }
