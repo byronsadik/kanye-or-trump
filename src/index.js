@@ -20,6 +20,17 @@ class Game extends React.Component {
         trump: 'https://api.whatdoestrumpthink.com/api/v1/quotes/random'
       },
 
+      person: [
+        {
+          name: 'kanye',
+          url: 'https://api.kanye.rest?format=json'
+        },
+        {
+          name: 'trump',
+          url: 'https://api.whatdoestrumpthink.com/api/v1/quotes/random'
+        }
+      ],
+
     };
   }
 
