@@ -27,22 +27,6 @@ class Game extends React.Component {
     this.getMessage();
   }
 
-  updateMessage(data) {
-    
-    let message;
-
-    if (this.state.kanyeOrTrump === 'kanye') {
-      message = data.quote;
-    } else {
-      message = data.message;
-    }
-
-    this.setState({
-      message: message,
-    });
-  }
-
-
   getMessage() {
 
     // pick a URL to callout and then set the state to kanye or trump as an easier reference
@@ -57,7 +41,6 @@ class Game extends React.Component {
     }, this.makeAPICall);
   }
 
-
   makeAPICall() {
 
     fetch(this.state.calloutURL)
@@ -67,6 +50,21 @@ class Game extends React.Component {
         this.updateMessage(data);
 
       });
+  }
+
+  updateMessage(data) {
+    
+    let message;
+
+    if (this.state.kanyeOrTrump === 'kanye') {
+      message = data.quote;
+    } else {
+      message = data.message;
+    }
+
+    this.setState({
+      message: message,
+    });
   }
 
   handleClick(buttonClass) {
