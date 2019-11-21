@@ -5,7 +5,7 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-class App extends React.Component {
+class Game extends React.Component {
   constructor(props) {
     super(props);
 
@@ -118,6 +118,10 @@ class App extends React.Component {
   }
 }
 
+
+
+
+
 function Score(props) {
   return (
     <h3>Your score is: {props.score}</h3>
@@ -149,6 +153,10 @@ class Button extends React.Component {
       </button>
     );
   }
+}
+
+function App(props) {
+  return <Game />;
 }
 
 var rootDiv = document.querySelector('#root');
