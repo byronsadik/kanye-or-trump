@@ -9,13 +9,17 @@ class App extends React.Component {
   constructor(props){
     super(props);
 
-    this.trump = 'https://api.whatdoestrumpthink.com/api/v1/quotes/random'; 
-    this.kanye = 'https://api.kanye.rest?format=json';
-
     this.state = {
       score: 0,
       message: '',
-      calloutURL: ''
+      calloutURL: '',
+      kanyeOrTrump: '',
+
+      urls: {
+        kanye: 'https://api.kanye.rest?format=json',
+        trump: 'https://api.whatdoestrumpthink.com/api/v1/quotes/random'
+      },
+
     };
   }
 
@@ -24,29 +28,37 @@ class App extends React.Component {
   }
 
   getCalloutURL() {
-    return ((Math.round((Math.random() * 1) + 0) === 0) ? this.kanye : this.trump);
+    return ((Math.round((Math.random() * 1) + 0) === 0) ? this.state.urls.kanye : this.state.urls.trump);
   }
 
-  getKanyeOrTrump(){
-    return (this.state.calloutURL === this.kanye ? 'kanye' : 'trump');
-  }
+  callBack(data){
+    
+    let message;
 
-  callBack(string){
+    if (this.state.kanyeOrTrump === 'kanye') {
+      message = data.quote;
+    } else {
+      message = data.message;
+    }
+
     this.setState({
-      message: string,
+      message: message,
     });
   }
 
 
   getMessage(){
+    let url = this.getCalloutURL();
+    let kanyeOrTrump = (url === this.state.urls.kanye ? 'kanye' : 'trump');
+
     this.setState({
-      calloutURL: this.getCalloutURL()
+      calloutURL: url,
+      kanyeOrTrump: kanyeOrTrump
     }, this.makeAPICall);
   }
 
 
   makeAPICall(){
-
 
     console.log("makeAPICall(): " + this.state.calloutURL);
 
@@ -54,32 +66,22 @@ class App extends React.Component {
       .then((res) => {return res.json()})
       .then((data) => {
 
-        if (this.state.calloutURL === this.kanye) {
-
-          this.callBack(data.quote);
-        
-        } else if (this.state.calloutURL === this.trump) {
-        
-          this.callBack(data.message);
-
-        }
+        this.callBack(data);
 
       });
   }
 
-  handleClick(c) {
-    let newScore = (c === this.getKanyeOrTrump()) ? (this.state.score + 1) : (this.state.score - 1);
+  handleClick(buttonClass) {
+    let newScore = (buttonClass === this.state.kanyeOrTrump) ? (this.state.score + 1) : (this.state.score - 1);
 
     this.setState({
       score: newScore,
-    });
-
-    this.getMessage();
+    }, this.getMessage);
   }
 
-  renderButton(c){
+  renderButton(buttonClass){
     return(
-      <Button addClass={c} onClick={() => {this.handleClick(c)}} />
+      <Button addClass={buttonClass} onClick={() => {this.handleClick(buttonClass)}} />
     );
   }
 
@@ -116,7 +118,7 @@ class App extends React.Component {
 
 function Score(props) {
   return(
-    <h3>The score is: {props.score}</h3>
+    <h3>Your score is: {props.score}</h3>
   );
 }
 
