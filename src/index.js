@@ -60,8 +60,6 @@ class Game extends React.Component {
 
   makeAPICall() {
 
-    console.log("makeAPICall(): " + this.state.calloutURL);
-
     fetch(this.state.calloutURL)
       .then((res) => {return res.json()})
       .then((data) => {
