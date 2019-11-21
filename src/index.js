@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 class App extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -23,7 +23,7 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.getMessage();
   }
 
@@ -31,7 +31,7 @@ class App extends React.Component {
     return ((Math.round((Math.random() * 1) + 0) === 0) ? this.state.urls.kanye : this.state.urls.trump);
   }
 
-  callBack(data){
+  callBack(data) {
     
     let message;
 
@@ -47,7 +47,8 @@ class App extends React.Component {
   }
 
 
-  getMessage(){
+  getMessage() {
+
     let url = this.getCalloutURL();
     let kanyeOrTrump = (url === this.state.urls.kanye ? 'kanye' : 'trump');
 
@@ -58,7 +59,7 @@ class App extends React.Component {
   }
 
 
-  makeAPICall(){
+  makeAPICall() {
 
     console.log("makeAPICall(): " + this.state.calloutURL);
 
@@ -72,6 +73,7 @@ class App extends React.Component {
   }
 
   handleClick(buttonClass) {
+
     let newScore = (buttonClass === this.state.kanyeOrTrump) ? (this.state.score + 1) : (this.state.score - 1);
 
     this.setState({
@@ -79,14 +81,14 @@ class App extends React.Component {
     }, this.getMessage);
   }
 
-  renderButton(buttonClass){
+  renderButton(buttonClass) {
     return(
       <Button addClass={buttonClass} onClick={() => {this.handleClick(buttonClass)}} />
     );
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
@@ -117,7 +119,7 @@ class App extends React.Component {
 }
 
 function Score(props) {
-  return(
+  return (
     <h3>Your score is: {props.score}</h3>
   );
 }
@@ -130,7 +132,7 @@ function Message(props) {
 }
 
 class Button extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       classes: 'btn btn-lg selector  ' + this.props.addClass,
@@ -139,7 +141,7 @@ class Button extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <button type="button" 
               className={this.state.classes}
               onClick={this.props.onClick}>
