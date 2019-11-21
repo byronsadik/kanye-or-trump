@@ -15,12 +15,11 @@ class App extends React.Component {
     this.state = {
       score: 0,
       message: '',
-      calloutURL: this.getCalloutURL()
+      calloutURL: ''
     };
   }
 
   componentDidMount(){
-    console.log("component mount: " + this.state.calloutURL);
     this.getMessage();
   }
 
@@ -38,9 +37,18 @@ class App extends React.Component {
     });
   }
 
-  getMessage(){
 
-    console.log("getMessage(): " + this.state.calloutURL);
+  getMessage(){
+    this.setState({
+      calloutURL: this.getCalloutURL()
+    }, this.makeAPICall);
+  }
+
+
+  makeAPICall(){
+
+
+    console.log("makeAPICall(): " + this.state.calloutURL);
 
     fetch(this.state.calloutURL)
       .then((res) => {return res.json()})
