@@ -151,8 +151,18 @@ class Button extends React.Component {
   }
 }
 
-function App(props) {
-  return <Game />;
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <Game />
+    );
+  }
 }
 
 var rootDiv = document.querySelector('#root');
