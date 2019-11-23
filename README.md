@@ -1,3 +1,5 @@
+This is a silly React game that displays a quote from either Kanye West or President Trump, and lets you pick who said it. 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
